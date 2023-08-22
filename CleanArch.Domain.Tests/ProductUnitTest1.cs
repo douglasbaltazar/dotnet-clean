@@ -44,5 +44,13 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+		[Fact(DisplayName = "Should return Short description Exception")]
+		public void CreateProduct_ShortDescriptionValue_DomainExceptionShortName()
+		{
+			Action action = () => new Product(1, "Produto", "Desc", 10.0m, 10, "http://github.com/douglasbaltazar.png");
+			action.Should()
+				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
+
 	}
 }
