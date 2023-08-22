@@ -65,6 +65,13 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+		[Fact(DisplayName = "Should return Image too long Exception if image URI provided is too long")]
+		public void CreateProduct_TooLongImage_DomainExceptionInvalidId()
+		{
+			Action action = () => new Product(1, "Product", "Description", 10.0m, 10, "http://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.pnghttp://github.com/douglasbaltazar.png");
+			action.Should()
+				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
 
 	}
 }
