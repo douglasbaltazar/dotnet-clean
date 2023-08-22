@@ -37,5 +37,12 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+		[Fact(DisplayName = "Should return Exception is description is not provided")]
+		public void CreateProduct_DescriptionIsNotProvided_DomainExceptionShortName()
+		{
+			Action action = () => new Product(1, "Produto", "", 10.0m, 10, "http://github.com/douglasbaltazar.png");
+			action.Should()
+				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
 	}
 }
