@@ -58,6 +58,13 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+		[Fact(DisplayName = "Should return Not Negative Exception if stock value provided is negative")]
+		public void CreateProduct_WithNegativeStockValue_DomainExceptionInvalidId()
+		{
+			Action action = () => new Product(1, "Product", "Description", 10.0m, -10, "http://github.com/douglasbaltazar.png");
+			action.Should()
+				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
 
 	}
 }
