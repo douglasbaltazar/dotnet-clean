@@ -1,0 +1,19 @@
+﻿using CleanArch.Domain.Entities;
+using FluentAssertions;
+using System;
+using Xunit;
+
+
+namespace CleanArch.Domain.Tests
+{
+	public class ProductUnitTest1
+	{
+		[Fact(DisplayName = "Should create a Product")]
+		public void CreateProduct_WithValidParameters_ResultObjectValidState()
+		{
+			Action action = () => new Product(1, "Product", "Description", 10.0m, 10, "http://github.com/douglasbaltazar.png");
+			action.Should()
+				.NotThrow<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
+	}
+}
