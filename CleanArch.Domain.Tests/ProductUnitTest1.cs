@@ -15,5 +15,13 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.NotThrow<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+
+		[Fact(DisplayName = "Should return Invalid Id Exception")]
+		public void CreateProduct_WithNegativeIdValue_DomainExceptionInvalidId()
+		{
+			Action action = () => new Product(-1, "Product", "Description", 10.0m, 10, "http://github.com/douglasbaltazar.png");
+			action.Should()
+				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
+		}
 	}
 }
