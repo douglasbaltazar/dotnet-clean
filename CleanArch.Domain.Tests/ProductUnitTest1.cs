@@ -72,6 +72,13 @@ namespace CleanArch.Domain.Tests
 			action.Should()
 				.Throw<CleanArch.Domain.Validation.DomainExceptionValidation>();
 		}
+		[Fact(DisplayName = "Should not return NoNullReferenceException if image URI provided is equals null")]
+		public void CreateProduct_ImageEqualsNull_DomainExceptionInvalidId()
+		{
+			Action action = () => new Product(1, "Product", "Description", 10.0m, 10, null);
+			action.Should()
+				.NotThrow<NullReferenceException>();
+		}
 
 	}
 }
