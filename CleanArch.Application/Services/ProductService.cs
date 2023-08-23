@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CleanArch.Application.DTOs;
 using CleanArch.Application.Interfaces;
+using CleanArch.Application.Products.Queries;
 using CleanArch.Domain.Entities;
 using CleanArch.Domain.Interfaces;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,10 @@ namespace CleanArch.Application.Services
 	public class ProductService : IProductService
 	{
 		private readonly IMapper _mapper;
-		private readonly IProductRepository _productRepository;
-		public ProductService(IProductRepository productRepository, IMapper mapper)
+		private readonly IMediator _mediator;
+		public ProductService(IMediator mediator, IMapper mapper)
 		{
-			_productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+			_mediator = mediator;
 			_mapper = mapper;
 		}
 
@@ -41,8 +43,15 @@ namespace CleanArch.Application.Services
 
 		public async Task<IEnumerable<ProductDTO>> GetProducts()
 		{
-			var productsEntity = await _productRepository.GetProductsAsync();
-			return _mapper.Map<IEnumerable<ProductDTO>>(productsEntity);
+			var productsQuery = new GetProductsQuery();
+
+			if(productsQuery == null)
+			{
+				throw new ApplicationHandleException($"Entity could not be loaded.");
+			}
+			var result = await _mediator.Send(productsQuery);
+			// var productsEntity = await _productRepository.GetProductsAsync();
+			return _mapper.Map<IEnumerable<ProductDTO>>(result);
 		}
 
 		public async Task Remove(int? id)
