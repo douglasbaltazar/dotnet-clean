@@ -18,7 +18,7 @@ namespace CleanArch.WebUI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> GetCategories()
 		{
 			var categories = await _categoryService.GetCategories();
 			return Json(categories);
