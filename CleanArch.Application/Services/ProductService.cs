@@ -3,13 +3,9 @@ using CleanArch.Application.DTOs;
 using CleanArch.Application.Interfaces;
 using CleanArch.Application.Products.Commands;
 using CleanArch.Application.Products.Queries;
-using CleanArch.Domain.Entities;
-using CleanArch.Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CleanArch.Application.Services
@@ -56,7 +52,7 @@ namespace CleanArch.Application.Services
 		{
 			var productsQuery = new GetProductsQuery();
 
-			if(productsQuery == null)
+			if (productsQuery == null)
 			{
 				throw new Exception($"Entity could not be loaded.");
 			}
