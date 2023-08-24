@@ -28,6 +28,48 @@ namespace CleanArch.API.Controllers
 				return NotFound("Categories not found");
 			}
 			return Ok(categories);
-		} 
+		}
+		
+		[HttpGet]
+		[Route("{id:int}", Name = "/GetCategory")]
+		public async Task<ActionResult<CategoryDTO>> Get(int id)
+		{
+			var category = await _categorySerive.GetById(id);
+			if(category == null)
+			{
+				return NotFound("Category not found");
+			}
+			return Ok(category);
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> Create([FromBody] CategoryDTO categoryDto)
+		{
+			if(categoryDto == null)
+			{
+				return BadRequest("Invalid data");
+			}
+			await _categorySerive.Add(categoryDto);
+
+			return new CreatedAtRouteResult("/GetCategory", new { id = categoryDto.Id }, categoryDto);
+		}
+
+		[HttpPut]
+		public async Task<ActionResult> Update(int id, [FromBody] CategoryDTO categoryDto)
+		{
+			if(id != categoryDto.Id)
+			{
+				return BadRequest();
+			}
+
+			if (categoryDto == null)
+			{
+				return BadRequest();
+			}
+
+			await _categorySerive.Update(categoryDto);
+
+			return Ok(categoryDto);
+		}
 	}
 }
