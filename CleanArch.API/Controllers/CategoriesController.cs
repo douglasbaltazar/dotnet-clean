@@ -31,7 +31,7 @@ namespace CleanArch.API.Controllers
 		}
 		
 		[HttpGet]
-		[Route("{id:int}", Name = "/GetCategory")]
+		[Route("{id}", Name = "/GetCategory")]
 		public async Task<ActionResult<CategoryDTO>> Get(int id)
 		{
 			var category = await _categorySerive.GetById(id);
@@ -70,6 +70,18 @@ namespace CleanArch.API.Controllers
 			await _categorySerive.Update(categoryDto);
 
 			return Ok(categoryDto);
+		}
+
+		[HttpDelete("{id:int}")]
+		public async Task<ActionResult<CategoryDTO>> Delete(int id)
+		{
+			var category = await _categorySerive.GetById(id);
+			if (category == null)
+			{
+				return NotFound("Category not found");
+			}
+			await _categorySerive.Remove(id);
+			return Ok(category);
 		}
 	}
 }
