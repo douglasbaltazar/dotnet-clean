@@ -29,7 +29,7 @@ namespace CleanArch.Infra.IoC
 					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
 					ValidIssuer = configuration["Jwt:Issuer"],
-					ValidAudience = configuration["Jwt:Audience"],
+					ValidAudience = configuration["Jwt:Audiencer"],
 					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
 					ClockSkew = TimeSpan.Zero
 				};

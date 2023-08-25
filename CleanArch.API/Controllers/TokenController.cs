@@ -1,5 +1,6 @@
 ﻿using CleanArch.API.Models;
 using CleanArch.Domain.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +24,7 @@ namespace CleanArch.API.Controllers
 			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
+		[AllowAnonymous]
 		[HttpPost("LoginUser")]
 		public async Task<ActionResult<UserToken>> Login([FromBody] LoginModel userInfo)
 		{
@@ -37,7 +39,7 @@ namespace CleanArch.API.Controllers
 				return BadRequest(ModelState);
 			}
 		}
-		
+		[AllowAnonymous]
 		[HttpPost("CreateUser")]
 		public async Task<ActionResult> CreateUser([FromBody] LoginModel registerModel)
 		{
@@ -72,7 +74,7 @@ namespace CleanArch.API.Controllers
 
 			JwtSecurityToken token = new JwtSecurityToken(
 				issuer: _configuration["Jwt:Issuer"],
-				audience: _configuration["Jwt:Audience"],
+				audience: _configuration["Jwt:Audiencer"],
 				claims: claims,
 				expires: expiration,
 				signingCredentials: crediantials
